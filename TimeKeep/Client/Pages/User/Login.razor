@@ -1,0 +1,63 @@
+﻿@page "/user/login"
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="page-header">Login</h3>
+    </div>
+</div>
+
+<Condition Evaluation="ShowServerErrors">
+    <Match>
+        <div class="row">
+            <div class="col-12">
+                <ul class="error-list">
+                    <Iterations Items="ServerResponse.Messages">
+                        <li class=validation-message>@context</li>
+                    </Iterations>
+                </ul>
+            </div>
+        </div>
+    </Match>
+</Condition>
+
+<EditForm Model="LoginVM" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <div class="col-12">
+            <p>Don't have an account? <a href="/user/register">Register</a> now to get started.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <InputText type="text" class="form-control" @bind-Value="LoginVM.Email" />
+                <ValidationMessage For="@(() => LoginVM.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <InputText type="password" class="form-control" @bind-Value="LoginVM.Password" />
+                <ValidationMessage For="@(() => LoginVM.Password)" />
+            </div>
+
+            <div class="form-group text-end">
+                <button type="reset" class="btn btn-secondary" @onclick='() => Navigation.NavigateTo("/")'>Cancel</button>
+
+                <Condition Evaluation="DisableSubmit">
+                    <Match>
+                        <button type="button" class="btn btn-success" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Logging in...
+                        </button>
+                    </Match>
+                    <NotMatch>
+                        <button type="submit" class="btn btn-success">Login</button>
+                    </NotMatch>
+                </Condition>
+            </div>
+        </div>
+    </div>
+</EditForm>

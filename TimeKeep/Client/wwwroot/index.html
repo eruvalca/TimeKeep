@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>TimeKeep</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="TimeKeep.Client.styles.css" rel="stylesheet" />
+    <link href="_content/Syncfusion.Blazor.Themes/bootstrap5.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="android-chrome-512x512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="android-chrome-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" sizes="48x48" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+</head>
+
+<body>
+    <div id="app">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="spinner-border" role="status" style="margin-top: 50px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="https://cdn.syncfusion.com/blazor/19.4.38/syncfusion-blazor.min.js" type="text/javascript"></script>
+    <script>
+        let newWorker;
+
+        // The click event on the pop up notification
+        //document.getElementById('reload').addEventListener('click', function () {
+        //    newWorker.postMessage({ action: 'skipWaiting' });
+        //});
+
+        navigator.serviceWorker.register('service-worker.js').then(reg => {
+            reg.addEventListener('updatefound', () => {
+                newWorker = reg.installing;
+
+                newWorker.addEventListener('statechange', () => {
+                    switch (newWorker.state) {
+                        case 'installed':
+                            if (navigator.serviceWorker.controller) {
+                                // new update available
+                                let continueInstall = confirm("New update is available. Continue to install.");
+
+                                if (continueInstall) {
+                                    newWorker.postMessage({ action: 'skipWaiting' });
+                                }
+                                //$("#update-modal").modal('show');
+                            }
+                            // No update available
+                            break;
+                    }
+                });
+            });
+        });
+
+        let refreshing;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+            if (refreshing) return;
+            window.location.reload();
+            refreshing = true;
+        });
+
+            //navigator.serviceWorker.register('service-worker.js');
+    </script>
+</body>
+
+</html>

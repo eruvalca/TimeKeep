@@ -1,0 +1,107 @@
+﻿@page "/user/profile"
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="page-header">Profile</h3>
+    </div>
+</div>
+
+<Condition Evaluation="ShowServerErrors">
+    <Match>
+        <div class="row">
+            <div class="col-12">
+                <ul class="error-list">
+                    <Iterations Items="ServerResponse.Messages">
+                        <li class=validation-message>@context</li>
+                    </Iterations>
+                </ul>
+            </div>
+        </div>
+    </Match>
+</Condition>
+
+<Condition Evaluation="User is not null">
+    <Match>
+        <EditForm Model="User" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <InputText type="text" class="form-control" @bind-Value="User.FirstName" />
+                        <ValidationMessage For="@(() => User.FirstName)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <InputText type="text" class="form-control" @bind-Value="User.LastName" />
+                        <ValidationMessage For="@(() => User.LastName)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Hire Date</label>
+                        <InputDate @bind-Value="User.HireDate" class="form-control" max='@DateTime.Today.ToString("yyyy-MM-dd")' />
+                        <div class="form-text">Please enter at least the month and year of hire. Select the 1st of the month if you are unsure of the exact day.</div>
+                        <ValidationMessage For="@(() => User.HireDate)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Vacation Days Accrued Per Month</label>
+                        <InputNumber @bind-Value="User.VacationDaysAccruedPerMonth" class="form-control" step="0.01" min="0" max="260" />
+                        <div class="form-text">Enter value only if your accrual rate is different than the default.</div>
+                        <ValidationMessage For="@(() => User.VacationDaysAccruedPerMonth)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Sick Hours Accrued Per Month</label>
+                        <InputNumber @bind-Value="User.SickHoursAccruedPerMonth" class="form-control" step="0.01" min="0" max="2080" />
+                        <div class="form-text">Enter value only if your accrual rate is different than the default.</div>
+                        <ValidationMessage For="@(() => User.SickHoursAccruedPerMonth)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Personal Days Per Year</label>
+                        <InputNumber @bind-Value="User.PersonalDaysPerYear" class="form-control" step="0.01" min="0" max="260" />
+                        <div class="form-text">Enter value only if your accrual rate is different than the default.</div>
+                        <ValidationMessage For="@(() => User.PersonalDaysPerYear)" />
+                    </div>
+
+                    <Condition Evaluation="User.HireDate.Year < DateTime.Today.Year">
+                        <Match>
+                            <div class="form-group">
+                                <label class="form-label">Did you carry over any vacation days from last year?</label>
+                                <InputNumber @bind-Value="User.VacationDaysCarriedOver" class="form-control" step="0.25" max="5.00" />
+                                <ValidationMessage For="@(() => User.VacationDaysAccruedPerMonth)" />
+                            </div>
+                        </Match>
+                    </Condition>
+
+                    <div class="form-group text-end">
+                        <button type="reset" class="btn btn-secondary" @onclick='() => Navigation.NavigateTo("/")'>Cancel</button>
+
+                        <Condition Evaluation="DisableSubmit">
+                            <Match>
+                                <button type="button" class="btn btn-success" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Submitting...
+                                </button>
+                            </Match>
+                            <NotMatch>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </NotMatch>
+                        </Condition>
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    </Match>
+
+    <NotMatch>
+        <div class="row">
+            <div class="col-12 text-center">
+                <LoadingSpinner MarginTop="50" />
+            </div>
+        </div>
+    </NotMatch>
+</Condition>

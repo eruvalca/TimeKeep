@@ -1,0 +1,19 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <Condition Evaluation="User is not null">
+            <Match>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" @onclick="BeginSignOut">Log Out</a>
+                </li>
+            </Match>
+        </Condition>
+    </Authorized>
+    <NotAuthorized>
+        <li class="nav-item">
+            <a class="nav-link" href="/user/login">Log In</a>
+        </li>
+    </NotAuthorized>
+</AuthorizeView>

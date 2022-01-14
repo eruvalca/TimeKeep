@@ -1,0 +1,87 @@
+﻿@page "/ptoEntry/edit/{Id:int}"
+
+<Condition Evaluation="TimeKeepUser is not null && PTOEntries is not null && PTOEntry is not null">
+    <Match>
+        <div class="row">
+            <div class="col-12">
+                <h3 class="page-header">Edit PTO Entry</h3>
+            </div>
+        </div>
+
+        <AvailableHoursDisplay VacationHoursAvailable="(decimal)VacationHoursAvailable" SickHoursAvailable="(decimal)SickHoursAvailable" PersonalHoursAvailable="(decimal)PersonalHoursAvailable" />
+
+        <EditForm Model="PTOEntry" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <InputDate class="form-control" @bind-Value="PTODate"
+                                   min='@(new DateTime(DateTime.Today.Year, 1, 1).ToString("yyyy-MM-dd"))'
+                                   max='@(new DateTime(DateTime.Today.Year, 12, 31).ToString("yyyy-MM-dd"))' />
+                        <ValidationMessage For="@(() => PTODate)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">PTO Type</label>
+                        <InputSelect class="form-control" @bind-Value="PTOType">
+                            @foreach (var ptoType in Enum.GetValues(typeof(PTOType)))
+                            {
+                                <Condition Evaluation='ptoType.ToString() != "VacationCarriedOver"'>
+                                    <Match>
+                                        <option value="@ptoType">@ptoType</option>
+                                    </Match>
+                                </Condition>
+                            }
+                        </InputSelect>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Hours</label>
+                        <InputNumber class="form-control" step="2" max="@(SelectedHoursAvailable < 8 ? SelectedHoursAvailable : 8)"  @bind-Value="PTOEntry.PTOHours" />
+                        <ValidationMessage For="@(() => PTOEntry.PTOHours)" />
+                    </div>
+
+                    <div class="form-group text-end">
+                        <button type="reset" class="btn btn-secondary" @onclick='() => Navigation.NavigateTo("/")'>Cancel</button>
+
+                        <Condition Evaluation="DisableDelete">
+                            <Match>
+                                <button type="button" class="btn btn-danger" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Deleting...
+                                </button>
+                            </Match>
+
+                            <NotMatch>
+                                <button type="button" class="btn btn-danger" @onclick="HandleDelete">Delete</button>
+                            </NotMatch>
+                        </Condition>
+
+                        <Condition Evaluation="DisableSubmit">
+                            <Match>
+                                <button type="button" class="btn btn-success" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Submitting...
+                                </button>
+                            </Match>
+
+                            <NotMatch>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </NotMatch>
+                        </Condition>
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    </Match>
+
+    <NotMatch>
+        <div class="row">
+            <div class="col-12 text-center">
+                <LoadingSpinner MarginTop="50" />
+            </div>
+        </div>
+    </NotMatch>
+</Condition>

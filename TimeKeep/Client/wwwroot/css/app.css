@@ -1,0 +1,73 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+html, body {
+    font-family: 'Montserrat', sans-serif;
+    color: #d51c27;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+div.card {
+    margin-bottom: 20px;
+}
+
+.page-header {
+    color: #1b0c3e;
+}
+
+.btn-check:focus + .btn-secondary, .btn-secondary:focus {
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgb(213 28 39 / 50%) !important;
+}
+
+button.btn-success {
+    color: #fff;
+    background-color: #1b0c3e;
+    border-color: #1b0c3e;
+}
+
+.btn-check:focus + .btn-success, .btn-success:focus {
+    color: #fff;
+    background-color: #1b0c3e;
+    border-color: #1b0c3e;
+    box-shadow: 0 0 0 0.25rem rgb(213 28 39 / 50%) !important;
+}
+
+.btn-check:focus + .btn-secondary, .btn-secondary:focus {
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgb(213 28 39 / 50%) !important;
+}
+
+btn-success {
+    color: #fff;
+    background-color: #1b0c3e;
+    border-color: #1b0c3e;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #1b0c3e;
+    border-color: #25408f;
+}
+
+.btn-check:focus + .btn-success, .btn-success:focus {
+    color: #fff;
+    background-color: #1b0c3e;
+    border-color: #1b0c3e;
+    box-shadow: 0 0 0 0.25rem rgb(213 28 39 / 50%) !important;
+}

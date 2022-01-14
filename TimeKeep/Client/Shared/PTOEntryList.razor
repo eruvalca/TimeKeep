@@ -1,0 +1,36 @@
+﻿
+<div class="row">
+    <div class="col-12">
+        <h5 class="header">PTO Entries</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <SfGrid @ref="DefaultGrid" DataSource="PTOEntries"
+                AllowSorting="true"
+                AllowResizing="true"
+                AllowPdfExport="true"
+                AllowExcelExport="true"
+                Toolbar=@Toolbar
+                GridLines="GridLine.Horizontal">
+            <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="PTOEntry"></GridEvents>
+            <GridColumns>
+                <GridColumn Field=@nameof(PTOEntry.PTODate) HeaderText="Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(PTOEntry.PTOType) HeaderText="Type" TextAlign="TextAlign.Left"></GridColumn>
+                <GridColumn Field=@nameof(PTOEntry.PTOHours) HeaderText="Hours" Format="N0" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn TextAlign="TextAlign.Center" AllowSorting="false">
+                    <Template>
+                        @{
+                            var entry = (context as PTOEntry);
+                            <button type="button"
+                                class="btn btn-sm btn-secondary"
+                                    @onclick='() => Navigation.NavigateTo($"/ptoEntry/edit/{entry.PTOEntryId}")'>
+                                Edit
+                            </button>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+</div>

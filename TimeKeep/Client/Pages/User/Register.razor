@@ -1,0 +1,114 @@
+﻿@page "/user/register"
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="page-header">Register</h3>
+    </div>
+</div>
+
+<Condition Evaluation="ShowServerErrors">
+    <Match>
+        <div class="row">
+            <div class="col-12">
+                <ul class="error-list">
+                    <Iterations Items="ServerResponse.Messages">
+                        <li class=validation-message>@context</li>
+                    </Iterations>
+                </ul>
+            </div>
+        </div>
+    </Match>
+</Condition>
+
+<EditForm Model="RegisterVM" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <InputText class="form-control" @bind-Value="RegisterVM.Email" />
+                <ValidationMessage For="@(() => RegisterVM.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <InputText type="password" class="form-control" @bind-Value="RegisterVM.Password" />
+                <ValidationMessage For="@(() => RegisterVM.Password)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <InputText type="password" class="form-control" @bind-Value="RegisterVM.ConfirmPassword" />
+                <ValidationMessage For="@(() => RegisterVM.ConfirmPassword)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">First Name</label>
+                <InputText class="form-control" @bind-Value="RegisterVM.FirstName" />
+                <ValidationMessage For="@(() => RegisterVM.FirstName)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <InputText class="form-control" @bind-Value="RegisterVM.LastName" />
+                <ValidationMessage For="@(() => RegisterVM.LastName)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Hire Date</label>
+                <InputDate @bind-Value="RegisterVM.HireDate" class="form-control" max='@DateTime.Today.ToString("yyyy-MM-dd")' />
+                <div class="form-text">Please enter at least the month and year of hire. Select the 1st of the month if you are unsure of the exact day.</div>
+                <ValidationMessage For="@(() => RegisterVM.HireDate)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Vacation Days Accrued Per Month</label>
+                <InputNumber @bind-Value="RegisterVM.VacationDaysAccruedPerMonth" class="form-control" step="0.01" min="0" max="260" />
+                <div class="form-text">Enter value only if your accrual rate is different than the default.</div>
+                <ValidationMessage For="@(() => RegisterVM.VacationDaysAccruedPerMonth)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Sick Hours Accrued Per Month</label>
+                <InputNumber @bind-Value="RegisterVM.SickHoursAccruedPerMonth" class="form-control" step="0.01" min="0" max="2080" />
+                <div class="form-text">Enter value only if your accrual rate is different than the default.</div>
+                <ValidationMessage For="@(() => RegisterVM.SickHoursAccruedPerMonth)" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Personal Days Per Year</label>
+                <InputNumber @bind-Value="RegisterVM.PersonalDaysPerYear" class="form-control" step="0.01" min="0" max="260" />
+                <div class="form-text">Enter value only if your accrual rate is different than the default.</div>
+                <ValidationMessage For="@(() => RegisterVM.PersonalDaysPerYear)" />
+            </div>
+
+            <Condition Evaluation="RegisterVM.HireDate.Year < DateTime.Today.Year">
+                <Match>
+                    <div class="form-group">
+                        <label class="form-label">Did you carry over any vacation days from last year?</label>
+                        <InputNumber @bind-Value="RegisterVM.VacationDaysCarriedOver" class="form-control" step="0.25" max="5.00" />
+                        <ValidationMessage For="@(() => RegisterVM.VacationDaysAccruedPerMonth)" />
+                    </div>
+                </Match>
+            </Condition>
+
+            <div class="form-group text-end">
+                <button type="reset" class="btn btn-secondary" @onclick='() => Navigation.NavigateTo("/")'>Cancel</button>
+
+                <Condition Evaluation="DisableSubmit">
+                    <Match>
+                        <button type="button" class="btn btn-success" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Registering...
+                        </button>
+                    </Match>
+
+                    <NotMatch>
+                        <button type="submit" class="btn btn-success">Register</button>
+                    </NotMatch>
+                </Condition>
+            </div>
+        </div>
+    </div>
+</EditForm>

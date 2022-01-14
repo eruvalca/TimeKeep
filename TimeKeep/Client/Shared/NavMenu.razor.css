@@ -1,0 +1,32 @@
+﻿small.text-muted {
+    font-size: 12px;
+}
+
+a.navbar-brand {
+    color: #d51c27;
+}
+
+    a.navbar-brand:focus, a.navbar-brand:hover {
+        color: lightgrey;
+    }
+
+nav.navbar {
+    background-image: linear-gradient(60deg, #1b0c3e, #1b0c3e, #25408f, #25408f, #1b0c3e, #1b0c3e) !important;
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+    border-top: 3px solid #d51c27;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

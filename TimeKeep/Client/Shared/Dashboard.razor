@@ -1,0 +1,38 @@
+﻿
+<Condition Evaluation="VacationHoursAvailable is not null && SickHoursAvailable is not null && PersonalHoursAvailable is not null">
+    <Match>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <DashboardCard PTOType="Vacation" HoursAvailable="(decimal)VacationHoursAvailable" HoursPlanned="(decimal)VacationHoursPlanned" />
+            </div>
+
+            <div class="col-6 col-md-4">
+                <DashboardCard PTOType="Sick" HoursAvailable="(decimal)SickHoursAvailable" HoursPlanned="(decimal)SickHoursPlanned" />
+            </div>
+
+            <div class="col-6 col-md-4">
+                <DashboardCard PTOType="Personal" HoursAvailable="(decimal)PersonalHoursAvailable" HoursPlanned="(decimal)PersonalHoursPlanned" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-success new-entry-btn" @onclick='() => Navigation.NavigateTo("/ptoEntry/new")'>New Entry</button>
+            </div>
+        </div>
+
+        <Condition Evaluation="PTOEntries is not null">
+            <Match>
+                <PTOEntryList PTOEntries="PTOEntries" />
+            </Match>
+        </Condition>
+    </Match>
+
+    <NotMatch>
+        <div class="row">
+            <div class="col-12 text-center">
+                <LoadingSpinner MarginTop="50" />
+            </div>
+        </div>
+    </NotMatch>
+</Condition>
