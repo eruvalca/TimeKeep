@@ -1,6 +1,8 @@
 ﻿@page "/ptoEntry/new"
 
-<Condition Evaluation="TimeKeepUser is not null && PTOEntries is not null">
+<Condition Evaluation="PTOEntryVM is not null
+                        && PTOEntryVM.TimeKeepUser is not null
+                        && PTOEntryVM.PTOEntries is not null">
     <Match>
         <div class="row">
             <div class="col-12">
@@ -8,24 +10,24 @@
             </div>
         </div>
 
-        <AvailableHoursDisplay VacationHoursAvailable="(decimal)VacationHoursAvailable" SickHoursAvailable="(decimal)SickHoursAvailable" PersonalHoursAvailable="(decimal)PersonalHoursAvailable" />
+        <AvailableHoursDisplay VacationHoursAvailable="(decimal)PTOEntryVM.VacationHoursAvailable" SickHoursAvailable="(decimal)PTOEntryVM.SickHoursAvailable" PersonalHoursAvailable="(decimal)PTOEntryVM.PersonalHoursAvailable" />
 
-        <EditForm Model="PTOEntry" OnValidSubmit="HandleSubmit">
+        <EditForm Model="PTOEntryVM" OnValidSubmit="HandleSubmit">
             <DataAnnotationsValidator />
 
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <InputDate class="form-control" @bind-Value="PTODate"
+                        <InputDate class="form-control" @bind-Value="PTOEntryVM.PTODate"
                                    min='@(new DateTime(DateTime.Today.Year, 1, 1).ToString("yyyy-MM-dd"))'
                                    max='@(new DateTime(DateTime.Today.Year, 12, 31).ToString("yyyy-MM-dd"))' />
-                        <ValidationMessage For="@(() => PTODate)" />
+                        <ValidationMessage For="@(() => PTOEntryVM.PTODate)" />
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">PTO Type</label>
-                        <InputSelect class="form-control" @bind-Value="PTOType">
+                        <InputSelect class="form-control" @bind-Value="PTOEntryVM.PTOType">
                             @foreach (var ptoType in Enum.GetValues(typeof(PTOType)))
                             {
                                 <Condition Evaluation='ptoType.ToString() != "VacationCarriedOver"'>
@@ -39,8 +41,8 @@
 
                     <div class="form-group">
                         <label class="form-label">Hours</label>
-                        <InputNumber class="form-control" step="2" max="@(SelectedHoursAvailable < 8 ? SelectedHoursAvailable : 8)" @bind-Value="PTOEntry.PTOHours" />
-                        <ValidationMessage For="@(() => PTOEntry.PTOHours)" />
+                        <InputNumber class="form-control" step="2" max="@(PTOEntryVM.SelectedHoursAvailable < 8 ? PTOEntryVM.SelectedHoursAvailable : 8)" @bind-Value="PTOEntryVM.PTOHours" />
+                        <ValidationMessage For="@(() => PTOEntryVM.PTOHours)" />
                     </div>
 
                     <div class="form-group text-end">
