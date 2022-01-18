@@ -87,8 +87,7 @@
                 <Match>
                     <div class="form-group">
                         <label class="form-label">Did you carry over any vacation days from last year?</label>
-                        <InputNumber @bind-Value="RegisterVM.VacationDaysCarriedOver" class="form-control" step="0.25" max="5.00" />
-                        <ValidationMessage For="@(() => RegisterVM.VacationDaysAccruedPerMonth)" />
+                        <InputNumber @bind-Value="VacationCarriedOver" class="form-control" step="0.25" min="0" max="5.00" />
                     </div>
                 </Match>
             </Condition>

@@ -20,6 +20,25 @@ namespace TimeKeep.Client.Pages.User
         private TimeKeepUser TimeKeepUser { get; set; }
         private UserVM User { get; set; }
         private AuthResponse ServerResponse { get; set; }
+        private decimal _vacationCarriedOver { get; set; }
+        private decimal VacationCarriedOver
+        {
+            get { return _vacationCarriedOver; }
+            set
+            {
+                _vacationCarriedOver = value;
+
+                if (_vacationCarriedOver > 5)
+                {
+                    _vacationCarriedOver = 5;
+                }
+
+                if (_vacationCarriedOver < 0)
+                {
+                    _vacationCarriedOver = 0;
+                }
+            }
+        }
         private bool ShowServerErrors { get; set; }
         private bool DisableSubmit { get; set; } = false;
 
@@ -28,7 +47,7 @@ namespace TimeKeep.Client.Pages.User
             TimeKeepUser = await UsersService.GetUserDetails();
             var vacationCarriedOverEntry = await PTOEntriesService.GetVacationCarriedOverEntryByUserId(TimeKeepUser.Id);
 
-            var vacationDaysCarriedOver = vacationCarriedOverEntry is null ? 0 : vacationCarriedOverEntry.PTOHours / 8;
+            VacationCarriedOver = vacationCarriedOverEntry is null ? 0 : vacationCarriedOverEntry.PTOHours / 8;
             
             User = new UserVM
             {
@@ -38,8 +57,7 @@ namespace TimeKeep.Client.Pages.User
                 HireDate = TimeKeepUser.HireDate,
                 VacationDaysAccruedPerMonth = TimeKeepUser.VacationDaysAccruedPerMonth,
                 SickHoursAccruedPerMonth = TimeKeepUser.SickHoursAccruedPerMonth,
-                PersonalDaysPerYear = TimeKeepUser.PersonalDaysPerYear,
-                VacationDaysCarriedOver = vacationDaysCarriedOver
+                PersonalDaysPerYear = TimeKeepUser.PersonalDaysPerYear
             };
         }
 
@@ -47,6 +65,9 @@ namespace TimeKeep.Client.Pages.User
         {
             DisableSubmit = true;
             ShowServerErrors = false;
+
+            User.VacationDaysCarriedOver = VacationCarriedOver;
+
             ServerResponse = await UsersService.UpdateUser(User);
 
             if (ServerResponse.IsSuccess)
