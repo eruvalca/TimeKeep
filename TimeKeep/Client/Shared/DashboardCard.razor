@@ -3,7 +3,7 @@
     <div class="card-body">
         <h5 class="card-title">@PTOType</h5>
         <h5 class="card-title hours-text">@Decimal.Round(HoursAvailable, 2)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Hours Available</h6>
-        <h6 class="card-subtitle mb-2">@Decimal.Round(HoursPlanned, 2) Hours Planned</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Hours Accrued</h6>
+        <h6 class="card-subtitle mb-2">@Math.Floor(HoursPlanned) Hours Planned</h6>
     </div>
 </div>
