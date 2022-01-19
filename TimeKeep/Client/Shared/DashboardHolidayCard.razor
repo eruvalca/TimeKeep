@@ -1,0 +1,9 @@
+﻿
+<div class="card shadow" @onclick='() => Navigation.NavigateTo($"/{Today.Year}/holidays")'>
+    <div class="card-body">
+        <h5 class="card-title">'@Today.ToString("yy") Holidays</h5>
+        <h5 class="card-title holidays-text">@RemainingHolidays</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Remaining</h6>
+        <h6 class="card-subtitle mb-2"><span class="next-text">Next:</span> @NextHoliday.Date.ToString("MM/dd/yyyy")</h6>
+    </div>
+</div>

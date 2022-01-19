@@ -12,6 +12,7 @@ namespace TimeKeep.Server.Data
         }
 
         public DbSet<PTOEntry> PTOEntries { get; set; }
+        public DbSet<Holiday> Holidays { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

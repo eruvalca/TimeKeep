@@ -1,0 +1,36 @@
+﻿@page "/{year:int}/holidays"
+
+<Condition Evaluation="Holidays is not null">
+    <Match>
+        <div class="row">
+            <div class="col-12">
+                <h3 class="page-header">@DateTime.Today.Year Holidays</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <SfGrid @ref="HolidayGrid" DataSource="Holidays" class="shadow"
+                        AllowSorting="true"
+                        AllowResizing="true"
+                        AllowPdfExport="true"
+                        AllowExcelExport="true"
+                        Toolbar=@Toolbar
+                        GridLines="GridLine.Horizontal">
+                    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Holiday"></GridEvents>
+                    <GridColumns>
+                        <GridColumn Field=@nameof(Holiday.Date) HeaderText="Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                        <GridColumn Field=@nameof(Holiday.Name) HeaderText="Type" TextAlign="TextAlign.Left"></GridColumn>
+                    </GridColumns>
+                </SfGrid>
+            </div>
+        </div>
+    </Match>
+
+    <NotMatch>
+        <div class="row">
+            <div class="col-12 text-center">
+                <LoadingSpinner MarginTop="50" />
+            </div>
+        </div>
+    </NotMatch>
+</Condition>

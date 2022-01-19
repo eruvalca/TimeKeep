@@ -51,15 +51,15 @@ namespace TimeKeep.Server.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4fa8e07d-10e0-4775-9c1e-a3ffc95f339a",
-                            ConcurrencyStamp = "d552c1b6-fb84-4c35-89ba-7e18a35ddb79",
+                            Id = "d6105b31-27ae-460b-b4e8-709d707acd83",
+                            ConcurrencyStamp = "ff8ce9a2-8198-4e66-985e-9fddb845726d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e2c996c6-92ac-4ea9-aede-c647a11620c8",
-                            ConcurrencyStamp = "739a2c71-624e-461d-9d92-9fb8ce458ae1",
+                            Id = "4cdede92-3f4d-4e7b-b5d5-f64465400a91",
+                            ConcurrencyStamp = "d59b0b96-2487-4c4c-baf6-a909b3d23884",
                             Name = "General",
                             NormalizedName = "GENERAL"
                         });
@@ -169,6 +169,28 @@ namespace TimeKeep.Server.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TimeKeep.Shared.Models.Holiday", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Holidays");
                 });
 
             modelBuilder.Entity("TimeKeep.Shared.Models.PTOEntry", b =>

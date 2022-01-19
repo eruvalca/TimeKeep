@@ -16,10 +16,13 @@ namespace TimeKeep.Client.Shared
         [Inject]
         private PTOEntriesService PTOEntriesService { get; set; }
         [Inject]
+        private HolidaysService HolidaysService { get; set; }
+        [Inject]
         private NavigationManager Navigation { get; set; }
 
         private TimeKeepUser TimeKeepUser { get; set; }
         private List<PTOEntry> PTOEntries { get; set; }
+        private List<Holiday> Holidays { get; set; }
         private decimal? VacationHoursAvailable { get; set; }
         public decimal? SickHoursAvailable { get; set; }
         public decimal? PersonalHoursAvailable { get; set; }
@@ -29,16 +32,19 @@ namespace TimeKeep.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            var today = DateTime.Today;
+
             TimeKeepUser = await UsersService.GetUserDetails();
             PTOEntries = await PTOEntriesService.GetPTOEntriesByUserId(TimeKeepUser.Id);
+            Holidays = await HolidaysService.GetHolidaysByYear(today.Year);
 
-            VacationHoursAvailable = PTOCalculator.GetVacationHoursAvailableByDate(TimeKeepUser, PTOEntries, DateTime.Today);
-            SickHoursAvailable = PTOCalculator.GetSickHoursAvailableByDate(TimeKeepUser, PTOEntries, DateTime.Today);
-            PersonalHoursAvailable = PTOCalculator.GetPersonalHoursAvailableByDate(TimeKeepUser, PTOEntries, DateTime.Today);
+            VacationHoursAvailable = PTOCalculator.GetVacationHoursAvailableByDate(TimeKeepUser, PTOEntries, today);
+            SickHoursAvailable = PTOCalculator.GetSickHoursAvailableByDate(TimeKeepUser, PTOEntries, today);
+            PersonalHoursAvailable = PTOCalculator.GetPersonalHoursAvailableByDate(TimeKeepUser, PTOEntries, today);
 
-            VacationHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, DateTime.Today, PTOType.Vacation) * -1);
-            SickHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, DateTime.Today, PTOType.Sick) * -1);
-            PersonalHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, DateTime.Today, PTOType.Personal) * -1);
+            VacationHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, today, PTOType.Vacation) * -1);
+            SickHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, today, PTOType.Sick) * -1);
+            PersonalHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, today, PTOType.Personal) * -1);
         }
     }
 }

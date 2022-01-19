@@ -15,6 +15,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddScoped<UsersService>();
 builder.Services.AddScoped<PTOEntriesService>();
+builder.Services.AddScoped<HolidaysService>();
 
 builder.Services.AddBlazoredLocalStorage();
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTYyNDcxQDMxMzkyZTM0MmUzMGVITC9uUnNPcG5kU001cjlWYjBxYk1RVjVBWWhaZC9iK3JicUNua29VV1E9");

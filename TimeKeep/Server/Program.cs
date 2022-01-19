@@ -65,6 +65,7 @@ builder.Services.AddAuthentication(auth =>
 builder.Services.AddSingleton<SymmetricKeyService>();
 builder.Services.AddScoped<UsersService>();
 builder.Services.AddScoped<PTOEntriesService>();
+builder.Services.AddScoped<HolidaysService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

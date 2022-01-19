@@ -2,16 +2,20 @@
 <Condition Evaluation="VacationHoursAvailable is not null && SickHoursAvailable is not null && PersonalHoursAvailable is not null">
     <Match>
         <div class="row">
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
                 <DashboardCard PTOType="Vacation" HoursAvailable="(decimal)VacationHoursAvailable" HoursPlanned="(decimal)VacationHoursPlanned" />
             </div>
 
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
                 <DashboardCard PTOType="Sick" HoursAvailable="(decimal)SickHoursAvailable" HoursPlanned="(decimal)SickHoursPlanned" />
             </div>
 
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
                 <DashboardCard PTOType="Personal" HoursAvailable="(decimal)PersonalHoursAvailable" HoursPlanned="(decimal)PersonalHoursPlanned" />
+            </div>
+
+            <div class="col-6 col-md-3">
+                <DashboardHolidayCard Holidays="Holidays" />
             </div>
         </div>
 
