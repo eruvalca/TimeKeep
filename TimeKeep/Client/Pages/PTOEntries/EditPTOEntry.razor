@@ -41,7 +41,7 @@
 
                     <div class="form-group">
                         <label class="form-label">Hours</label>
-                        <InputNumber class="form-control" step="1" max="@(PTOEntryVM.SelectedHoursAvailable < 8 ? PTOEntryVM.SelectedHoursAvailable : 8)"  @bind-Value="PTOEntryVM.PTOHours" />
+                        <InputNumber class="form-control" step="1" min="0" max="@(PTOEntryVM.SelectedHoursAvailable < 8 ? PTOEntryVM.SelectedHoursAvailable : 8)"  @bind-Value="PTOEntryVM.PTOHours" />
                         <ValidationMessage For="@(() => PTOEntryVM.PTOHours)" />
                     </div>
 

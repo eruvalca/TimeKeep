@@ -32,7 +32,7 @@ namespace TimeKeep.Client.Pages.PTOEntries
             PTOEntryVM.TimeKeepUserId = PTOEntryVM.TimeKeepUser.Id;
             PTOEntryVM.PTODate = DateTime.Today;
             PTOEntryVM.PTOType = PTOType.Vacation;
-            PTOEntryVM.PTOHours = 2;
+            PTOEntryVM.PTOHours = 1;
         }
 
         private async Task HandleSubmit()
