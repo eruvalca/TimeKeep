@@ -21,6 +21,8 @@ namespace TimeKeep.Shared.ViewModels
             {
                 _ptoHours = value;
 
+                _ptoHours = Math.Floor(_ptoHours);
+
                 if (_ptoHours > 8)
                 {
                     _ptoHours = 8;
@@ -28,12 +30,12 @@ namespace TimeKeep.Shared.ViewModels
 
                 if (_ptoHours > SelectedHoursAvailable)
                 {
-                    _ptoHours = Math.Floor(SelectedHoursAvailable);
+                    _ptoHours = SelectedHoursAvailable;
                 }
 
-                if (_ptoHours % 2 != 0)
+                if (_ptoHours < 0)
                 {
-                    _ptoHours -= 1;
+                    _ptoHours = 0;
                 }
             }
         }
