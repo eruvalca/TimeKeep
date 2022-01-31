@@ -86,8 +86,8 @@
             <Condition Evaluation="RegisterVM.HireDate.Year < DateTime.Today.Year">
                 <Match>
                     <div class="form-group">
-                        <label class="form-label">Did you carry over any vacation days from last year?</label>
-                        <InputNumber @bind-Value="VacationCarriedOver" class="form-control" step="0.25" min="0" max="5.00" />
+                        <label class="form-label">Did you carry over any vacation days from last year? (0.125 days = 1 hour)</label>
+                        <InputNumber @bind-Value="VacationCarriedOver" class="form-control" step="0.125" min="0" max="5.00" />
                     </div>
                 </Match>
             </Condition>
