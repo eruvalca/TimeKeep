@@ -18,7 +18,14 @@
                         GridLines="GridLine.Horizontal">
                     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Holiday"></GridEvents>
                     <GridColumns>
-                        <GridColumn Field=@nameof(Holiday.Date) HeaderText="Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                        <GridColumn HeaderText="Date" TextAlign="TextAlign.Right" AllowSorting="false">
+                            <Template>
+                                @{
+                                    var holiday = (context as Holiday);
+                                    <span>@holiday.Date.ToString("dddd"), @holiday.Date.ToString("M")</span>
+                                }
+                            </Template>
+                        </GridColumn>
                         <GridColumn Field=@nameof(Holiday.Name) HeaderText="Type" TextAlign="TextAlign.Left"></GridColumn>
                     </GridColumns>
                 </SfGrid>

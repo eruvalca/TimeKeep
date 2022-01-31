@@ -31,7 +31,7 @@ namespace TimeKeep.Client.Pages
             var exportColumns = new List<GridColumn>
             {
                 #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
-                new GridColumn() { Field = "Date", HeaderText = "Date", Type = ColumnType.Date, Format = "d", TextAlign = TextAlign.Right },
+                new GridColumn() { Field = "Date", HeaderText = "Date", Type = ColumnType.Date, Format = "D", TextAlign = TextAlign.Right },
                 new GridColumn() { Field = "Name", HeaderText = "Name", TextAlign = TextAlign.Left }
                 #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
             };
