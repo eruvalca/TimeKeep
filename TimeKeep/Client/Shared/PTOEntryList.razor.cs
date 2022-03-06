@@ -33,7 +33,9 @@ namespace TimeKeep.Client.Shared
                 CreateDate = p.CreateDate,
                 ModifyDate = p.ModifyDate,
                 TimeKeepUserId = p.TimeKeepUserId
-            }).ToList();
+            }).OrderBy(p => p.PTODate)
+                .ThenBy(p => p.PTOEntryId)
+                .ToList();
         }
 
         public async Task ToolbarClickHandler(ClickEventArgs args)
