@@ -15,7 +15,8 @@
                 GridLines="GridLine.Horizontal">
             <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="PTOEntry"></GridEvents>
             <GridColumns>
-                <GridColumn Field=@nameof(PTOEntry.PTODate) HeaderText="Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(PTOEntry.PTODate) HeaderText="Date" Format="M/dd" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(PTOEntry.PTODate) HeaderText="Day" Format="dddd" Type="ColumnType.String" TextAlign="TextAlign.Left"></GridColumn>
                 <GridColumn Field=@nameof(PTOEntry.PTOType) HeaderText="Type" TextAlign="TextAlign.Left"></GridColumn>
                 <GridColumn Field=@nameof(PTOEntry.PTOHours) HeaderText="Hours" Format="N0" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
                 <GridColumn TextAlign="TextAlign.Center" AllowSorting="false">
