@@ -16,7 +16,7 @@ namespace TimeKeep.Server.Services
 
         public async Task<int> GetPTOEntriesCount()
         {
-            return await _context.PTOEntries.CountAsync();
+            return await _context.PTOEntries.Where(p => p.PTOType == PTOType.Vacation).CountAsync();
         }
 
         public async Task<List<PTOEntry>> GetPTOEntriesByUserId(string userId)
