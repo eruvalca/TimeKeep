@@ -3,7 +3,7 @@
     <Match>
         <div class="row">
             <div class="col-6 col-md-3">
-                <DashboardCard PTOType="Vacation" HoursAvailable="(decimal)VacationHoursAvailable" HoursPlanned="(decimal)VacationHoursPlanned" />
+                <DashboardCard PTOType="Vacation" HoursAvailable="(decimal)VacationHoursAvailable" HoursPlanned="(decimal)VacationHoursPlanned" HoursExpiring="VacationHoursCarriedOverRemaining" />
             </div>
 
             <div class="col-6 col-md-3">
@@ -21,7 +21,7 @@
 
         <div class="row">
             <div class="col-12 text-center">
-                <button type="button" class="btn btn-success new-entry-btn" @onclick='() => Navigation.NavigateTo("/ptoEntry/new")'>New Entry</button>
+                <button type="button" class="btn btn-lg btn-success new-entry-btn" @onclick='() => Navigation.NavigateTo("/ptoEntry/new")'>New Entry</button>
             </div>
         </div>
 

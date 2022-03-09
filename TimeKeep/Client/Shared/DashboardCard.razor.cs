@@ -12,5 +12,7 @@ namespace TimeKeep.Client.Shared
         public decimal HoursAvailable { get; set; }
         [Parameter]
         public decimal HoursPlanned { get; set; }
+        [Parameter]
+        public decimal? HoursExpiring { get; set; }
     }
 }

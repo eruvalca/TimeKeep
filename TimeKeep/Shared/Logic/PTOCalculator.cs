@@ -142,5 +142,23 @@ namespace TimeKeep.Shared.Logic
 
             return personalHoursAvailable;
         }
+
+        public static decimal GetVacationHoursCarriedOverRemaining(List<PTOEntry> ptoEntries)
+        {
+            var vacationCarryOverExpirationDate = new DateTime(DateTime.Today.Year, 3, 31);
+
+            var vacationHoursCarriedOver = ptoEntries
+                   .Where(p => p.PTOType == PTOType.VacationCarriedOver
+                       && p.PTODate.Year == DateTime.Now.Year)
+                   .Sum(p => p.PTOHours);
+
+            var vacationHoursUsedAgainstCarriedOver = ptoEntries
+                .Where(p => p.PTOType == PTOType.Vacation
+                    && p.PTODate.Date <= vacationCarryOverExpirationDate.Date
+                    && p.PTODate.Year == DateTime.Now.Year)
+                .Sum(p => p.PTOHours);
+
+            return vacationHoursCarriedOver + vacationHoursUsedAgainstCarriedOver;
+        }
     }
 }

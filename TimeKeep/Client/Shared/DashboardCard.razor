@@ -5,5 +5,10 @@
         <h5 class="card-title hours-text">@Decimal.Round(HoursAvailable, 2)</h5>
         <h6 class="card-subtitle mb-2 text-muted">Hours Accrued</h6>
         <h6 class="card-subtitle mb-2">@Math.Floor(HoursPlanned) Hours Planned</h6>
+        <Condition Evaluation="HoursExpiring > 0">
+            <Match>
+                <small class="text-muted">@Math.Floor((decimal)HoursExpiring) hours expiring after 3/31</small>
+            </Match>
+        </Condition>
     </div>
 </div>

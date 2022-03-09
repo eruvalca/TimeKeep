@@ -29,6 +29,7 @@ namespace TimeKeep.Client.Shared
         private decimal? VacationHoursPlanned { get; set; }
         public decimal? SickHoursPlanned { get; set; }
         public decimal? PersonalHoursPlanned { get; set; }
+        public decimal? VacationHoursCarriedOverRemaining { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -45,6 +46,11 @@ namespace TimeKeep.Client.Shared
             VacationHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, today, PTOType.Vacation) * -1);
             SickHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, today, PTOType.Sick) * -1);
             PersonalHoursPlanned = (PTOCalculator.GetHoursPlannedAfterDateByType(PTOEntries, today, PTOType.Personal) * -1);
+
+            if (today < new DateTime(DateTime.Now.Year, 4, 1))
+            {
+                VacationHoursCarriedOverRemaining = (PTOCalculator.GetVacationHoursCarriedOverRemaining(PTOEntries) * -1);
+            }
         }
     }
 }
